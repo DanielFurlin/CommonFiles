@@ -1,0 +1,6 @@
+:syntax on "enable color
+:set tabpagemax=100
+:set mouse=a "enable mouse
+:set tabstop=4 shiftwidth=4 expandtab
+:set relativenumber
+match ErrorMsg '\s\+$'
