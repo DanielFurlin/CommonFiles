@@ -155,3 +155,7 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+#lockscreen
+bindsym $mod+BackSpace exec lock
+exec --no-startup-id xautolock -time 10 -locker "lock"
