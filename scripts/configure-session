@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Depends: x11-xserver-utils numlockx
+
+# Configure monitor layout
+xrandr --output DP-3 --auto --output HDMI-3 --auto --right-of DP-3
+
+# Enable numlock
+/usr/bin/numlockx on
