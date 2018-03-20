@@ -1,0 +1,30 @@
+# Description: Commands to run a qemu-system-x86_64
+#
+#
+# Defaults
+# MEMORY=4G
+# PATH_TO_HDA=/home/danielfurlin/VMs/example/example.qcow2
+# BRIDGE=br221
+# SPICY_PORT=9000
+# VNC_HOSTNAME=0.0.0.0 or localhost
+# VNC_PORT=10
+qemu-system-x86_64 -name ubuntu \
+            -enable-kvm \
+            -cpu host \
+            -smp sockets=1,cores=4,threads=1 \
+            -m ${MEMORY} \
+            -rtc base=localtime,clock=host \
+            -drive file=${PATH_TO_HDA},index=0,id=drive0,if=none,format=qcow2,cache=writeback,cache.direct=on,aio=native
+            -device virtio-blk-pci,drive=drive0
+            -net bridge,br=${BRIDGE} \
+            -net nic,macaddr=00:17:2e:ff:01:02,model=virtio \
+            -vga none \
+            -spice port=${SPICY_PORT},disable-ticketing \
+            -device qxl-vga,vgamem_mb=128 \
+            -device virtio-serial-pci \
+            -device virtserialport,chardev=spicechannel0,name=com.redhat.spice.0 \
+            -chardev spicevmc,id=spicechannel0,name=vdagent \
+            -vnc ${HOSTNAME}:${VNC_PORT} \
+            -soundhw ac97 \
+            -nodefaults \
+            -boot menu=on,order=cd
