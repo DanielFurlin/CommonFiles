@@ -165,6 +165,20 @@ bar {
     }
    #     status_command i3status
 }
+bar {
+    font pango:DejaVu Sans Mono, FontAwesome 8
+    status_command i3blocks
+    colors {
+        #color class       border  back.   text
+        focused_workspace  #007030 #007030 #ffffff
+        active_workspace   #555555 #555555 #ffffff
+        inactive_workspace #000000 #000000 #888888
+        urgent_workspace   #2f343a #900000 #ffffff
+    }
+    position top
+    workspace_buttons no
+}
+
 
 # Lockscreen
 bindsym $mod+BackSpace exec lock
@@ -175,10 +189,18 @@ bindsym $mod+F5 exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spoti
 bindsym $mod+F6 exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 bindsym $mod+F7 exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
+# Volume Control
+bindsym $mod+KP_Add exec amixer set Master -q 5%+ && pkill -RTMIN+1 i3blocks
+bindsym $mod+KP_Subtract exec amixer set Master -q 5%- && pkill -RTMIN+1 i3blocks
+bindsym $mod+KP_0 exec amixer set Master toggle && pkill -RTMIN+1
+
+
 # Gaps
 for_window [class="^.*"] border pixel 0
-gaps inner 10
-gaps outer 5
+#gaps inner 10
+#gaps outer 5
 
 # Smart gaps, enable gaps only if have two or more windows.
-smart_gaps on
+#smart_gaps on
+
+exec --no-startup-id feh --bg-scale /usr/share/backgrounds/background
